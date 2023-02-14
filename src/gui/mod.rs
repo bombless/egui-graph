@@ -1,5 +1,8 @@
 use eframe::egui;
-use egui::{Stroke, Rect, Pos2, Rounding, Color32};
+use shapes::Shapes;
+use egui::Color32;
+
+mod shapes;
 
 pub fn run(ranks: Vec<Vec<i32>>, values: Vec<Vec<i32>>) {
     // Log to stdout (if you run with `RUST_LOG=debug`).
@@ -30,23 +33,13 @@ impl MyApp {
     }
 }
 
+const RED: Color32 = Color32::from_rgb(255, 0, 0);
+
 impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
 
-            let min_pos = Pos2 { x: 10., y: 10. };
-            let max_pos = Pos2 { x: 50., y: 50. };
-
-            let rect = Rect { min: min_pos, max: max_pos };
-
-            let rounding = Rounding::none();
-
-            let stroke = Stroke {
-                width: 2.,
-                color: Color32::from_rgb(255, 0, 0),
-            };
-            
-            ui.painter().rect_stroke(rect, rounding, stroke);
+            ui.draw_rectangle_lines(10., 10., 40., 40., 2., RED);
 
         });
     }
