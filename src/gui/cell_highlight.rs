@@ -11,6 +11,13 @@ impl Highlight {
         Self { cells: HashSet::new(), uf }
     }
     pub fn highlight(&mut self, val: (usize, usize)) {
+        for pair in &self.cells {
+            if self.uf.find(&val) == self.uf.find(pair) {
+                self.cells.clear();
+                return;
+            }
+            break;
+        }
         self.cells.clear();
         let groups = self.uf.groups();
         let id = self.uf.find(&val);
