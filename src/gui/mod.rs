@@ -49,6 +49,7 @@ struct MyApp {
     expected: Vec<Vec<i32>>,
     green_cells: Highlight,
     tab: Tab,
+    pair: Option<(usize, usize)>,
 }
 
 impl MyApp {
@@ -59,6 +60,7 @@ impl MyApp {
             expected,
             green_cells: Highlight::new(uf),
             tab: Tab::Ranks,
+            pair: None,
         }
     }
 }

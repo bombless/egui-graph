@@ -13,7 +13,7 @@ impl<E: Hash + PartialEq + Eq + Clone> UnionFind<E> {
             return e.clone();
         }
         let r = self.0.get(p).unwrap().clone();
-        self.0.insert(p.clone(), r.clone());
+        self.0.insert(e.clone(), r.clone());
         r
     }
     pub fn union(&mut self, lhs: E, rhs: E) {

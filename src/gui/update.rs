@@ -24,7 +24,7 @@ impl eframe::App for MyApp {
 
         let options = Frame {
             fill: Color32::DARK_GRAY,
-            inner_margin: Margin { left: 10., right: 10., top: 10., bottom: 10. },
+            inner_margin: Margin { left: LEFT_MARGIN, right: 0., top: 0., bottom: 0. },
             ..Frame::default()
         };
 
@@ -50,8 +50,19 @@ impl eframe::App for MyApp {
                 let x_count = (x - LEFT_MARGIN) / CELL_WIDTH;
                 let y_count = (y - BAR_HEIGHT) / CELL_HEIGHT;
                 if x_count >= 0. && x_count < m as f32 && y_count >= 0. && y_count < n as f32 {
-                    self.green_cells.highlight((x_count as usize, y_count as usize));
+                    let pair = self.green_cells.highlight((x_count as usize, y_count as usize));
+                    self.pair = pair;
                 }
+            }
+
+            if let Some(pair) = self.pair {
+                ui.draw_text(
+                    &format!("{:?}", pair),
+                    CELL_WIDTH * 6.,
+                    10.,
+                    18.,
+                    Color32::BLACK,
+                );
             }
 
             for i in 0 .. m {
