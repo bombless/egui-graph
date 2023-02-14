@@ -23,7 +23,7 @@ fn main() {
 
     let uf = Solution::union_find(&values);
 
-    gui::run(ranks, values, uf);
+    gui::run(ranks, values, diff::data(), uf);
 
 }
 

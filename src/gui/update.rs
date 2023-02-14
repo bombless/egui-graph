@@ -19,6 +19,7 @@ impl eframe::App for MyApp {
         let texts = match &self.tab {
             Tab::Ranks => &self.ranks,
             Tab::Values => &self.values,
+            Tab::Expected => &self.expected,
         };
 
         let options = Frame {
@@ -29,11 +30,14 @@ impl eframe::App for MyApp {
 
         egui::CentralPanel::default().frame(options).show(ctx, |ui| {
 
+            if ui.radio(self.tab == Tab::Values, "Show value").clicked() {
+                self.tab = Tab::Values;
+            }
             if ui.radio(self.tab == Tab::Ranks, "Show rank").clicked() {
                 self.tab = Tab::Ranks;
             }
-            if ui.radio(self.tab == Tab::Values, "Show value").clicked() {
-                self.tab = Tab::Values;
+            if ui.radio(self.tab == Tab::Expected, "Show expected").clicked() {
+                self.tab = Tab::Expected;
             }
 
             fn clicked_pos(i: &InputState) -> Option<Pos2> {

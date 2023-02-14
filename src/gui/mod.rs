@@ -13,9 +13,10 @@ mod cell_highlight;
 enum Tab {
     Ranks,
     Values,
+    Expected,
 }
 
-pub fn run(ranks: Vec<Vec<i32>>, values: Vec<Vec<i32>>, uf: UnionFind<(usize, usize)>) {
+pub fn run(ranks: Vec<Vec<i32>>, values: Vec<Vec<i32>>, expected: Vec<Vec<i32>>, uf: UnionFind<(usize, usize)>) {
     // Log to stdout (if you run with `RUST_LOG=debug`).
     tracing_subscriber::fmt::init();
 
@@ -38,22 +39,24 @@ pub fn run(ranks: Vec<Vec<i32>>, values: Vec<Vec<i32>>, uf: UnionFind<(usize, us
     eframe::run_native(
         "My egui App",
         options,
-        Box::new(|_cc| Box::new(MyApp::new(ranks, values, uf))),
+        Box::new(|_cc| Box::new(MyApp::new(ranks, values, expected, uf))),
     ).unwrap()
 }
 
 struct MyApp {
     ranks: Vec<Vec<i32>>,
     values: Vec<Vec<i32>>,
+    expected: Vec<Vec<i32>>,
     green_cells: Highlight,
     tab: Tab,
 }
 
 impl MyApp {
-    fn new(ranks: Vec<Vec<i32>>, values: Vec<Vec<i32>>, uf: UnionFind<(usize, usize)>) -> MyApp {
+    fn new(ranks: Vec<Vec<i32>>, values: Vec<Vec<i32>>, expected: Vec<Vec<i32>>, uf: UnionFind<(usize, usize)>) -> MyApp {
         Self {
             ranks,
             values,
+            expected,
             green_cells: Highlight::new(uf),
             tab: Tab::Ranks,
         }
