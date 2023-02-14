@@ -1,18 +1,22 @@
 use std::collections::HashSet;
+use crate::solution::UnionFind;
 
-pub struct Highlight(HashSet<(usize, usize)>);
+pub struct Highlight {
+    cells: HashSet<(usize, usize)>,
+    uf: UnionFind<(usize, usize)>,
+}
 
 impl Highlight {
-    pub fn new() -> Self {
-        Self(HashSet::new())
+    pub fn new(uf: UnionFind<(usize, usize)>) -> Self {
+        Self { cells: HashSet::new(), uf }
     }
     pub fn clear(&mut self) {
-        self.0.clear()
+        self.cells.clear()
     }
     pub fn insert(&mut self, val: (usize, usize)) {
-        self.0.insert(val);
+        self.cells.insert(val);
     }
     pub fn contains(&self, k: &(usize, usize)) -> bool {
-        self.0.contains(k)
+        self.cells.contains(k)
     }
 }

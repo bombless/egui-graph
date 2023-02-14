@@ -1,7 +1,7 @@
 use std::collections::{HashMap, HashSet};
 use std::hash::Hash;
 
-struct UnionFind<E>(HashMap<E, E>);
+pub struct UnionFind<E>(HashMap<E, E>);
 
 impl<E: Hash + PartialEq + Eq + Clone> UnionFind<E> {
     pub fn new() -> Self {
@@ -113,7 +113,7 @@ impl Solution {
         }
         matrix
     }
-    fn union_find(matrix: &Vec<Vec<i32>>) -> UnionFind<(usize, usize)> {
+    pub fn union_find(matrix: &Vec<Vec<i32>>) -> UnionFind<(usize, usize)> {
         let m = matrix.len();
         let n = matrix[0].len();
 

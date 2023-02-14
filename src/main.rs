@@ -1,20 +1,26 @@
+use solution::Solution;
+
+
 mod solution;
 mod gui;
 
 fn main() {
-    let matrix = solution::Solution::matrix_rank_transform(get_data());
-    let m = matrix.len();
-    let n = matrix[0].len();
+    let values = get_data();
+    let ranks = Solution::matrix_rank_transform(values.clone());
+    let m = values.len();
+    let n = values[0].len();
 
     for i in 0 .. m {
         print!("|");
         for j in 0 .. n {
-            print!("{: >2}|", matrix[i][j]);
+            print!("{: >2}|", ranks[i][j]);
         }
         println!();
     }
 
-    gui::run(matrix, get_data());
+    let uf = Solution::union_find(&values);
+
+    gui::run(ranks, values, uf);
 
 }
 
