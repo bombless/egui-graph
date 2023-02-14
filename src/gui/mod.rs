@@ -1,10 +1,11 @@
 use eframe::egui;
 use egui::{FontFamily, FontDefinitions, FontData};
-use std::collections::HashSet;
+use cell_highlight::Highlight;
 
 mod shapes;
 mod text;
 mod update;
+mod cell_highlight;
 
 pub fn run(ranks: Vec<Vec<i32>>, values: Vec<Vec<i32>>) {
     // Log to stdout (if you run with `RUST_LOG=debug`).
@@ -36,7 +37,7 @@ pub fn run(ranks: Vec<Vec<i32>>, values: Vec<Vec<i32>>) {
 struct MyApp {
     ranks: Vec<Vec<i32>>,
     values: Vec<Vec<i32>>,
-    green_cells: HashSet<(usize, usize)>,
+    green_cells: Highlight,
 }
 
 impl MyApp {
@@ -44,7 +45,7 @@ impl MyApp {
         Self {
             ranks,
             values,
-            green_cells: HashSet::new(),
+            green_cells: Highlight::new(),
         }
     }
 }
