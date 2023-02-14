@@ -10,11 +10,13 @@ impl Highlight {
     pub fn new(uf: UnionFind<(usize, usize)>) -> Self {
         Self { cells: HashSet::new(), uf }
     }
-    pub fn clear(&mut self) {
-        self.cells.clear()
-    }
-    pub fn insert(&mut self, val: (usize, usize)) {
-        self.cells.insert(val);
+    pub fn highlight(&mut self, val: (usize, usize)) {
+        self.cells.clear();
+        let groups = self.uf.groups();
+        let id = self.uf.find(&val);
+        for &entry in groups.get(&id).unwrap() {
+            self.cells.insert(entry);
+        }
     }
     pub fn contains(&self, k: &(usize, usize)) -> bool {
         self.cells.contains(k)

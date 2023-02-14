@@ -30,8 +30,7 @@ impl eframe::App for MyApp {
                 let x_count = (x - LEFT_MARGIN) / CELL_WIDTH;
                 let y_count = (y - BAR_HEIGHT) / CELL_HEIGHT;
                 if x_count >= 0. && x_count < m as f32 && y_count >= 0. && y_count < n as f32 {
-                    self.green_cells.clear();
-                    self.green_cells.insert((x_count as usize, y_count as usize));
+                    self.green_cells.highlight((x_count as usize, y_count as usize));
                 }
             }
 
