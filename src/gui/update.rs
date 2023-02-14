@@ -1,25 +1,41 @@
 use super::{shapes::Shapes, text::Text};
-use super::MyApp;
+use super::{MyApp, Tab};
 use egui::{Color32, PointerButton, InputState, Pos2};
 use egui::containers::Frame;
+use egui::style::Margin;
 
 const CELL_WIDTH: f32 = 30.;
 const CELL_HEIGHT: f32 = 30.;
 const CELL_THIKNESS: f32 = 1.;
-const BAR_HEIGHT: f32 = 30.;
+const BAR_HEIGHT: f32 = 70.;
 const LEFT_MARGIN: f32 = 30.;
+
 
 impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         let m = self.values.len();
         let n = self.values[0].len();
 
+        let texts = match &self.tab {
+            Tab::Ranks => &self.ranks,
+            Tab::Values => &self.values,
+        };
+
         let options = Frame {
-            fill: Color32::GRAY,
+            fill: Color32::DARK_GRAY,
+            inner_margin: Margin { left: 10., right: 10., top: 10., bottom: 10. },
             ..Frame::default()
         };
 
         egui::CentralPanel::default().frame(options).show(ctx, |ui| {
+
+            if ui.radio(self.tab == Tab::Ranks, "Show rank").clicked() {
+                self.tab = Tab::Ranks;
+            }
+            if ui.radio(self.tab == Tab::Values, "Show value").clicked() {
+                self.tab = Tab::Values;
+            }
+
             fn clicked_pos(i: &InputState) -> Option<Pos2> {
                 if i.pointer.button_pressed(PointerButton::Primary) {
                     return i.pointer.interact_pos()
@@ -59,7 +75,7 @@ impl eframe::App for MyApp {
                     );
 
                     ui.draw_text(
-                        &self.values[i][j].to_string(),
+                        &texts[i][j].to_string(),
                         x + CELL_WIDTH / 2.,
                         y + CELL_HEIGHT / 2.,
                         18.,

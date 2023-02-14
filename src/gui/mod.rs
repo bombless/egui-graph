@@ -8,6 +8,13 @@ mod text;
 mod update;
 mod cell_highlight;
 
+
+#[derive(PartialEq)]
+enum Tab {
+    Ranks,
+    Values,
+}
+
 pub fn run(ranks: Vec<Vec<i32>>, values: Vec<Vec<i32>>, uf: UnionFind<(usize, usize)>) {
     // Log to stdout (if you run with `RUST_LOG=debug`).
     tracing_subscriber::fmt::init();
@@ -39,6 +46,7 @@ struct MyApp {
     ranks: Vec<Vec<i32>>,
     values: Vec<Vec<i32>>,
     green_cells: Highlight,
+    tab: Tab,
 }
 
 impl MyApp {
@@ -47,6 +55,7 @@ impl MyApp {
             ranks,
             values,
             green_cells: Highlight::new(uf),
+            tab: Tab::Ranks,
         }
     }
 }
