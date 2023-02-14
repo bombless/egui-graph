@@ -1,8 +1,10 @@
-use super::shapes::Shapes;
+use super::{shapes::Shapes, text::Text};
 use super::MyApp;
 use egui::Color32;
+use egui::containers::Frame;
 
 const RED: Color32 = Color32::from_rgb(255, 0, 0);
+const BLACK: Color32 = Color32::from_rgb(0, 0, 0);
 
 const CELL_WIDTH: f32 = 30.;
 const CELL_HEIGHT: f32 = 30.;
@@ -16,7 +18,12 @@ impl eframe::App for MyApp {
         let m = self.values.len();
         let n = self.values[0].len();
 
-        egui::CentralPanel::default().show(ctx, |ui| {
+        let options = Frame {
+            fill: Color32::GRAY,
+            ..Frame::default()
+        };
+
+        egui::CentralPanel::default().frame(options).show(ctx, |ui| {
             for i in 0 .. m {
                 for j in 0 .. n {
                     let x = i as f32 * CELL_WIDTH + LEFT_MARGIN;
@@ -28,7 +35,15 @@ impl eframe::App for MyApp {
                         CELL_WIDTH + CELL_THIKNESS,
                         CELL_HEIGHT + CELL_THIKNESS,
                         CELL_THIKNESS * 2.,
-                        RED
+                        RED,
+                    );
+
+                    ui.draw_text(
+                        &self.values[i][j].to_string(),
+                        x + CELL_WIDTH / 2.,
+                        y + CELL_HEIGHT / 2.,
+                        18.,
+                        BLACK,
                     );
                 }
             }
