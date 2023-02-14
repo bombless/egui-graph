@@ -3,13 +3,9 @@ use super::MyApp;
 use egui::Color32;
 use egui::containers::Frame;
 
-const RED: Color32 = Color32::from_rgb(255, 0, 0);
-const BLACK: Color32 = Color32::from_rgb(0, 0, 0);
-
 const CELL_WIDTH: f32 = 30.;
 const CELL_HEIGHT: f32 = 30.;
 const CELL_THIKNESS: f32 = 1.;
-const CELL_PADDING: f32 = 3.;
 const BAR_HEIGHT: f32 = 30.;
 const LEFT_MARGIN: f32 = 30.;
 
@@ -35,7 +31,7 @@ impl eframe::App for MyApp {
                         CELL_WIDTH + CELL_THIKNESS,
                         CELL_HEIGHT + CELL_THIKNESS,
                         CELL_THIKNESS * 2.,
-                        RED,
+                        Color32::RED,
                     );
 
                     ui.draw_text(
@@ -43,7 +39,7 @@ impl eframe::App for MyApp {
                         x + CELL_WIDTH / 2.,
                         y + CELL_HEIGHT / 2.,
                         18.,
-                        BLACK,
+                        Color32::BLACK,
                     );
                 }
             }
