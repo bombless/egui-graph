@@ -3,6 +3,7 @@ use solution::Solution;
 
 mod solution;
 mod gui;
+mod diff;
 
 fn main() {
     let values = get_data();
@@ -17,6 +18,8 @@ fn main() {
         }
         println!();
     }
+
+    println!("diff {}", diff::result(&ranks));
 
     let uf = Solution::union_find(&values);
 
