@@ -1,5 +1,6 @@
 use eframe::egui;
 use egui::{FontFamily, FontDefinitions, FontData};
+use std::collections::HashSet;
 
 mod shapes;
 mod text;
@@ -35,6 +36,7 @@ pub fn run(ranks: Vec<Vec<i32>>, values: Vec<Vec<i32>>) {
 struct MyApp {
     ranks: Vec<Vec<i32>>,
     values: Vec<Vec<i32>>,
+    green_cells: HashSet<(usize, usize)>,
 }
 
 impl MyApp {
@@ -42,6 +44,7 @@ impl MyApp {
         Self {
             ranks,
             values,
+            green_cells: HashSet::new(),
         }
     }
 }
